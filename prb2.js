@@ -1,47 +1,39 @@
-// Returns a list where the val at i is the product 
-// of all the elements without i
+const arr = [3, 2, 1] //define the input
 
-const arr = [3,2,1]
-
-const total = (nums)=>{
-	let prod = 1
-	for(let num in nums){
-		prod*=nums[num]
-	}
-	return prod
+const multiply = (lst, index) => { //define a function which takes an array and an index to ignore
+  let prod = 1; //define a product value
+  for (let i in lst) { //loop through indexes
+    if (i === index) //if ignored index, don't multiply
+      continue; //skip loop iteration
+    prod *= lst[i] //increase product
+  }
+  return prod //return product
 }
 
-const output = (nums)=>{
-	let output =[]
-	let tot = total(arr)
-	for(let num in nums){
-		output.push(tot/nums[num])
-	}
-	return output
-}
-console.log(`Division: ${output(arr)}`)
-
-console.log('^^^^^^ This is done with division ^^^^^^')
-// same as above, but without using division
-console.log('vvvvvv This is done without division vvvvvv')
-
-const func = (lst, i) =>{
-	let prod = 1
-	for(let num in lst){
-		if(num === i)
-			continue
-		else
-			prod *= lst[num]
-	}
-	return prod
+const noDivision = (lst) => {
+  let output = [] //define an empty output array
+  for (let i in lst) //loop through indexes
+    output.push(multiply(lst, i)) //append the result of multiply()
+  return output //return our new array
 }
 
-const out = (lst) =>{
-	let my_out = []
-	for(let num in lst){
-		my_out[num] = func(lst, num)
-	}
-	return my_out
+// ^^^^^ No division ^^^^^
+
+// vvvvv Division vvvvv
+const product = (lst) => {
+  let prod = 1 
+  for (let num of lst)
+    prod *= num
+  return prod
 }
 
-console.log(`No division: ${out(arr)}`)
+const division = (lst) => {
+  let output = []
+  let prod = product(lst)
+  for (let num of lst)
+    output.push(prod / num)
+  return output
+}
+
+console.log(`Answer with division: ${division(arr)}`)
+console.log(`Answer without division: ${noDivision(arr)}`)
